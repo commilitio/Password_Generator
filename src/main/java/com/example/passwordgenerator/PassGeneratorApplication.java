@@ -45,10 +45,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class PassGeneratorApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-          FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+          FXMLLoader fxmlLoader = new FXMLLoader(PassGeneratorApplication.class.getResource("hello-view.fxml"));
         // zamiast w pliku hello-view.fxml okreslac wyglad ramki, mozemy tutaj w kodzie to zmodyfikowac i opisac
 
 //        GridPane root = new GridPane();
@@ -61,7 +61,7 @@ public class HelloApplication extends Application {
 //        greeting.setTextFill(Color.DARKGREEN);                   // kolor etykiety
 //        greeting.setFont(Font.font("Times New Roman", FontWeight.BOLD, 60));        // czcionka, pogrubienie, rozmiar
 
-        Scene scene = new Scene(fxmlLoader.load(), 720, 340);          // szer, wys
+        Scene scene = new Scene(fxmlLoader.load(), 800, 500);          // szer, wys
         stage.setTitle("Password Generator");
         stage.setScene(scene);
         stage.show();

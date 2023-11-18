@@ -2,13 +2,15 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+
+<?import eu.hansolo.tilesfx.addons.ImageSpinner?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <BorderPane fx:controller="com.example.passwordgenerator.HelloController" xmlns:fx="http://javafx.com/fxml">
     <top>
         <Label text="Password Generator" alignment="CENTER"
@@ -19,6 +21,27 @@
             </font>
         </Label>
     </top>
+    <right>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <padding>
+                <Insets
+                        right="150">
+                </Insets>
+            </padding>
+            <Button text="Generate" BorderPane.alignment="CENTER" textFill="darkgreen">
+                <graphic>
+                    <ImageView>
+                        <Image url="C:\Users\segoy\IdeaProjects\PasswordGenerator\generate2.png">
+                        </Image>
+                    </ImageView>
+                </graphic>
+                <font>
+                    <Font size="15">
+                    </Font>
+                </font>
+            </Button>
+        </HBox>
+    </right>
     <bottom>
         <HBox spacing="10" alignment="CENTER_RIGHT">             <!-- zagniezdzamy jeden layout w drugim -->
             <padding>
@@ -26,7 +49,7 @@
                     bottom="10" right="10">
                 </Insets>
             </padding>
-            <Button text="Ok" GridPane.rowIndex="0" GridPane.columnIndex="0" prefWidth="80"/>         <!-- preferowana szer przycisku -->
+            <Button text="Exit" GridPane.rowIndex="0" GridPane.columnIndex="0" prefWidth="80"/>         <!-- preferowana szer przycisku -->
             <Button text="Copy password" GridPane.rowIndex="0" GridPane.columnIndex="2" prefWidth="110"/>   <!-- okreslamy ustawienie buttona (wiersz/kolumna) -->
             <Button text="Save password" GridPane.rowIndex="0" GridPane.columnIndex="3" prefWidth="110"/>
         </HBox>
