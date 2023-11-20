@@ -48,8 +48,8 @@ import java.io.IOException;
 public class PassGeneratorApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-          FXMLLoader fxmlLoader = new FXMLLoader(PassGeneratorApplication.class.getResource("hello-view.fxml"));
-        // zamiast w pliku hello-view.fxml okreslac wyglad ramki, mozemy tutaj w kodzie to zmodyfikowac i opisac
+          FXMLLoader fxmlLoader = new FXMLLoader(PassGeneratorApplication.class.getResource("main-frame.fxml"));
+        // zamiast w pliku main-frame.fxml okreslac wyglad ramki, mozemy tutaj w kodzie to zmodyfikowac i opisac
 
 //        GridPane root = new GridPane();
 //        root.setAlignment(Pos.CENTER);              // pozycja napisu
@@ -61,7 +61,7 @@ public class PassGeneratorApplication extends Application {
 //        greeting.setTextFill(Color.DARKGREEN);                   // kolor etykiety
 //        greeting.setFont(Font.font("Times New Roman", FontWeight.BOLD, 60));        // czcionka, pogrubienie, rozmiar
 
-        Scene scene = new Scene(fxmlLoader.load(), 800, 500);          // szer, wys
+        Scene scene = new Scene(fxmlLoader.load(), 700, 450);          // szer, wys
         stage.setTitle("Password Generator");
         stage.setScene(scene);
         stage.show();

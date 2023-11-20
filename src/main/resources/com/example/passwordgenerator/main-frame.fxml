@@ -7,11 +7,13 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-
-<?import eu.hansolo.tilesfx.addons.ImageSpinner?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<BorderPane fx:controller="com.example.passwordgenerator.HelloController" xmlns:fx="http://javafx.com/fxml">
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TextField?>
+<BorderPane fx:controller="com.example.passwordgenerator.PasswordController" xmlns:fx="http://javafx.com/fxml">
     <top>
         <Label text="Password Generator" alignment="CENTER"
         BorderPane.alignment="CENTER">              <!-- bez tego nie bylby w centrum -->
@@ -28,20 +30,36 @@
                         right="150">
                 </Insets>
             </padding>
-            <Button text="Generate" BorderPane.alignment="CENTER" textFill="darkgreen">
+            <Button fx:id="generateButton" text="Generate" BorderPane.alignment="CENTER" textFill="darkgreen">
                 <graphic>
                     <ImageView>
-                        <Image url="C:\Users\segoy\IdeaProjects\PasswordGenerator\generate2.png">
+                        <Image url="@/generate2.png">
                         </Image>
                     </ImageView>
                 </graphic>
                 <font>
-                    <Font size="15">
+                    <Font size="20">
                     </Font>
                 </font>
             </Button>
         </HBox>
     </right>
+    <left>
+        <VBox spacing="20" alignment="CENTER_LEFT">
+            <padding>
+                <Insets
+                        left="150">
+                </Insets>
+            </padding>
+            <TextField fx:id="textField" text="Enter desired password lenght" prefWidth="180"
+                       onMouseClicked="#handleTextFieldClick"
+                       onKeyReleased="#handleKeyReleased">
+            </TextField>
+            <CheckBox text="Include big letters" textFill="darkblue"> </CheckBox>
+            <CheckBox text="Include numbers" textFill="darkblue"> </CheckBox>
+            <CheckBox text="Include special characters" textFill="darkblue"> </CheckBox>
+        </VBox>
+    </left>
     <bottom>
         <HBox spacing="10" alignment="CENTER_RIGHT">             <!-- zagniezdzamy jeden layout w drugim -->
             <padding>
