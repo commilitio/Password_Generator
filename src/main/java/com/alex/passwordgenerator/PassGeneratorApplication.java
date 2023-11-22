@@ -36,7 +36,7 @@ Jest to przydatne, gdy chcesz, aby pewne elementy interfejsu użytkownika były 
 
  */
 
-package com.example.passwordgenerator;
+package com.alex.passwordgenerator;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

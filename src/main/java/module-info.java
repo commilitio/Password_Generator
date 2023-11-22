@@ -9,6 +9,6 @@ module com.example.passwordgenerator {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
 
-    opens com.example.passwordgenerator to javafx.fxml;
-    exports com.example.passwordgenerator;
+    opens com.alex.passwordgenerator to javafx.fxml;
+    exports com.alex.passwordgenerator;
 }

@@ -13,7 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.TextField?>
-<BorderPane fx:controller="com.example.passwordgenerator.PasswordController" xmlns:fx="http://javafx.com/fxml">
+<?import javafx.scene.layout.Background?>
+<?import javafx.scene.layout.BackgroundFill?>
+<BorderPane fx:controller="com.alex.passwordgenerator.PasswordController" xmlns:fx="http://javafx.com/fxml">
     <top>
         <Label text="Password Generator" alignment="CENTER"
         BorderPane.alignment="CENTER">              <!-- bez tego nie bylby w centrum -->
@@ -24,7 +26,7 @@
         </Label>
     </top>
     <right>
-        <HBox spacing="10" alignment="CENTER_LEFT">
+        <VBox spacing="50" alignment="CENTER_LEFT">
             <padding>
                 <Insets
                         right="150">
@@ -42,7 +44,17 @@
                     </Font>
                 </font>
             </Button>
-        </HBox>
+            <Label fx:id="generatedPassword" visible="true" text="tu bedzie textField">
+                <background>
+                    <Background>
+                        <fills>
+                            <BackgroundFill fill="lightgray">
+                            </BackgroundFill>
+                        </fills>
+                    </Background>
+                </background>
+            </Label>
+        </VBox>
     </right>
     <left>
         <VBox spacing="20" alignment="CENTER_LEFT">
@@ -55,9 +67,9 @@
                        onMouseClicked="#handleTextFieldClick"
                        onKeyReleased="#handleKeyReleased">
             </TextField>
-            <CheckBox text="Include big letters" textFill="darkblue"> </CheckBox>
-            <CheckBox text="Include numbers" textFill="darkblue"> </CheckBox>
-            <CheckBox text="Include special characters" textFill="darkblue"> </CheckBox>
+            <CheckBox fx:id="bigLettersCheckbox" text="Include big letters" textFill="darkblue" onAction="#handleBigLettersCheckBox"> </CheckBox>
+            <CheckBox fx:id="numbersCheckbox" text="Include numbers" textFill="darkblue" onAction="#handleNumbersCheckBox"> </CheckBox>
+            <CheckBox fx:id="specialCharCheckbox" text="Include special characters" textFill="darkblue" onAction="#handleSpecialCharCheckBox"> </CheckBox>
         </VBox>
     </left>
     <bottom>
