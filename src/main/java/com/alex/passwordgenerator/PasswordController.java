@@ -5,10 +5,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
 import javax.swing.*;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.security.SecureRandom;
-import java.util.Random;
 
 public class PasswordController {
     @FXML
@@ -27,6 +28,7 @@ public class PasswordController {
     private CheckBox numbersCheckbox;
     @FXML
     private CheckBox specialCharCheckbox;
+    private String password;
 
     @FXML
     public void initialize(){               // przy uruchamianiu apki juz ustawia przycisk na niedostepny
@@ -51,14 +53,15 @@ public class PasswordController {
     @FXML
     private void handleSavePasswordButtonClick(){
 
-        if (!generatedPassword.isVisible())
-            savePasswordButton.setDisable(false);
+
     }
 
 
     @FXML
     private void handleCopyPasswordButtonClick(){
-
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();     // pobiera schowek systemowy
+        StringSelection selection = new StringSelection(password);          // pozwala na przechowywanie tekstu w formie Transferable
+        clipboard.setContents(selection, null);                         // ustawia zawartosc schowka
     }
 
 
@@ -123,6 +126,9 @@ public class PasswordController {
             password.append(randomChar);
         }
         generatedPassword.setText("password: \n" + String.valueOf(password));       // wysylamy do Label
+        this.password = password.toString();                                        // zapisuje haslo w polu klasy
+        savePasswordButton.setDisable(false);
+        copyPasswordButton.setDisable(false);
     }
 }
 
