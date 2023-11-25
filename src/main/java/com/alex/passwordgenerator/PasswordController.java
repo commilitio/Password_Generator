@@ -5,10 +5,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import javax.imageio.IIOException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.security.SecureRandom;
 
 public class PasswordController {
@@ -51,9 +59,20 @@ public class PasswordController {
 
 
     @FXML
-    private void handleSavePasswordButtonClick(){
+    private void handleSavePasswordButtonClick() throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Text files (.txt)", "*.txt");     // filtr dla konkretnego typu plikow (descritpion, extension)
+        fileChooser.getExtensionFilters().add(filter);
+        File selectedFile = fileChooser.showSaveDialog(new Stage());        // wyswietla okno dialogowe wyboru plikow
 
-
+        try {                                                               // zapis hasla do pliku
+            BufferedWriter writer = new BufferedWriter(new FileWriter(selectedFile));
+            writer.write(password);
+            writer.close();
+        }
+        catch (IIOException e){
+            e.getMessage();
+        }
     }
 
 
@@ -61,7 +80,7 @@ public class PasswordController {
     private void handleCopyPasswordButtonClick(){
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();     // pobiera schowek systemowy
         StringSelection selection = new StringSelection(password);          // pozwala na przechowywanie tekstu w formie Transferable
-        clipboard.setContents(selection, null);                         // ustawia zawartosc schowka
+        clipboard.setContents(selection, null);                         // ustawia zawartosc schowka - Transferable required
     }
 
 
