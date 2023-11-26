@@ -5,9 +5,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import javax.imageio.IIOException;
 import javax.swing.*;
 import java.awt.*;
@@ -22,6 +25,8 @@ import java.security.SecureRandom;
 public class PasswordController {
     @FXML
     public Label generatedPassword;
+    @FXML
+    public Label passwordStrength;
     @FXML
     private TextField textField;
     @FXML
@@ -56,6 +61,38 @@ public class PasswordController {
     private void handleExitButtonClick(){
         System.exit(1);
     }
+
+
+
+    private boolean isPasswordWeak() {
+        return !bigLettersCheckbox.isSelected() && !numbersCheckbox.isSelected() && !specialCharCheckbox.isSelected() ||
+                password.length() <= 6 ||
+                !bigLettersCheckbox.isSelected() && password.length() <= 8 ||
+                !numbersCheckbox.isSelected() && password.length() <= 8 ||
+                !specialCharCheckbox.isSelected() && password.length() <= 8;
+    }
+
+
+    private boolean isPasswordMedium(){
+        return !bigLettersCheckbox.isSelected() && password.length() <= 12 ||
+                !numbersCheckbox.isSelected() && password.length() <= 12 ||
+                !specialCharCheckbox.isSelected() && password.length() <= 12 ||
+                bigLettersCheckbox.isSelected() && !numbersCheckbox.isSelected() && !specialCharCheckbox.isSelected() &&
+                        password.length() >= 12 ||
+                !bigLettersCheckbox.isSelected() && numbersCheckbox.isSelected() && !specialCharCheckbox.isSelected() &&
+                        password.length() >= 12 ||
+                !bigLettersCheckbox.isSelected() && !numbersCheckbox.isSelected() && specialCharCheckbox.isSelected() &&
+                        password.length() >= 12;
+    }
+
+    private boolean isPasswordStrong(){
+        return bigLettersCheckbox.isSelected() && numbersCheckbox.isSelected() && specialCharCheckbox.isSelected() &&
+                password.length() > 8 ||
+                bigLettersCheckbox.isSelected() && numbersCheckbox.isSelected() && password.length() > 12 ||
+                bigLettersCheckbox.isSelected() && specialCharCheckbox.isSelected() && password.length() > 12 ||
+                numbersCheckbox.isSelected() && specialCharCheckbox.isSelected() && password.length() > 12;
+    }
+
 
 
     @FXML
@@ -144,6 +181,24 @@ public class PasswordController {
             char randomChar = lowerCase.charAt(random.nextInt(lowerCase.length()));
             password.append(randomChar);
         }
+
+        Paint backgroundPaint = null;
+
+        if (isPasswordWeak()) {
+            passwordStrength.setText("Password strength: weak");
+            backgroundPaint = Color.LIGHTPINK;
+        } else if (isPasswordMedium()) {
+            passwordStrength.setText("Password strength: medium");
+            backgroundPaint = Color.LIGHTYELLOW;
+        } else if (isPasswordStrong()) {
+            passwordStrength.setText("Password strength: strong");
+            backgroundPaint = Color.LIGHTGREEN;
+        }
+        BackgroundFill backgroundFill = new BackgroundFill(backgroundPaint, null, null);
+        Background background = new Background(backgroundFill);
+        passwordStrength.setBackground(background);
+
+
         generatedPassword.setText("password: \n" + String.valueOf(password));       // wysylamy do Label
         this.password = password.toString();                                        // zapisuje haslo w polu klasy
         savePasswordButton.setDisable(false);

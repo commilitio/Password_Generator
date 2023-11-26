@@ -47,7 +47,6 @@
                 </font>
             </Button>
             <Label fx:id="generatedPassword" BorderPane.alignment="CENTER_RIGHT">
-
                 <font>
                     <Font size="13">
                     </Font>
@@ -77,6 +76,8 @@
             <CheckBox fx:id="bigLettersCheckbox" text="Include capital letters" textFill="darkblue"/>
             <CheckBox fx:id="numbersCheckbox" text="Include digits" textFill="darkblue"/>
             <CheckBox fx:id="specialCharCheckbox" text="Include special characters" textFill="darkblue"/>
+            <Label fx:id="passwordStrength">
+            </Label>
         </VBox>
     </left>
     <bottom>
