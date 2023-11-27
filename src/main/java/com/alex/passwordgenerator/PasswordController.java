@@ -44,7 +44,7 @@ public class PasswordController {
     private String password;
 
     @FXML
-    public void initialize(){               // sets buttons invisible just from the beggining
+    public void initialize(){               // sets those buttons disabled just from the beggining
         generateButton.setDisable(true);
         savePasswordButton.setDisable(true);
         copyPasswordButton.setDisable(true);
@@ -52,7 +52,7 @@ public class PasswordController {
 
 
     @FXML
-    private void handleTextFieldClick() {       // main role: clear TextField with password length when clicked on
+    private void handleTextFieldClick() {       // main role: clears TextField with password length when clicked on
         textField.clear();
         generateButton.setDisable(true);
         savePasswordButton.setDisable(true);
