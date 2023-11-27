@@ -44,7 +44,7 @@ public class PasswordController {
     private String password;
 
     @FXML
-    public void initialize(){               // przy uruchamianiu apki juz ustawia przycisk na niedostepny
+    public void initialize(){               // sets buttons invisible just from the beggining
         generateButton.setDisable(true);
         savePasswordButton.setDisable(true);
         copyPasswordButton.setDisable(true);
@@ -52,9 +52,9 @@ public class PasswordController {
 
 
     @FXML
-    private void handleTextFieldClick() {
-        textField.clear();                      // czysci zawartosc pola textField po kliknieciu w nie
-        generateButton.setDisable(true);        // przy okazji wylacza przyciski
+    private void handleTextFieldClick() {       // main role: clear TextField with password length when clicked on
+        textField.clear();
+        generateButton.setDisable(true);
         savePasswordButton.setDisable(true);
         copyPasswordButton.setDisable(true);
         generatedPassword.setVisible(false);
@@ -69,7 +69,7 @@ public class PasswordController {
 
 
 
-    private boolean isPasswordWeak() {
+    private boolean isPasswordWeak() {                              // passwordStrength Label criterias
         boolean noBigLetters = !bigLettersCheckbox.isSelected();
         boolean noDigits = !numbersCheckbox.isSelected();
         boolean noSpecialChar = !specialCharCheckbox.isSelected();
@@ -118,11 +118,11 @@ public class PasswordController {
     @FXML
     private void handleSavePasswordButtonClick() throws IOException {
         FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Text files (.txt)", "*.txt");     // filtr dla konkretnego typu plikow (descritpion, extension)
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Text files (.txt)", "*.txt");
         fileChooser.getExtensionFilters().add(filter);
-        File selectedFile = fileChooser.showSaveDialog(new Stage());        // wyswietla okno dialogowe wyboru plikow
+        File selectedFile = fileChooser.showSaveDialog(new Stage());
 
-        try {                                                               // zapis hasla do pliku
+        try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(selectedFile));
             writer.write(password);
             writer.close();
@@ -135,51 +135,33 @@ public class PasswordController {
 
     @FXML
     private void handleCopyPasswordButtonClick(){
-        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();     // pobiera schowek systemowy
-        StringSelection selection = new StringSelection(password);          // pozwala na przechowywanie tekstu w formie Transferable
-        clipboard.setContents(selection, null);                         // ustawia zawartosc schowka - Transferable required
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        StringSelection selection = new StringSelection(password);
+        clipboard.setContents(selection, null);
     }
 
 
     @FXML
-    private void handleKeyReleased() {
-        String text = textField.getText();                              // pobiera zawartosc pola textField
-        boolean disableButton = text.isEmpty() || text.trim().isEmpty();        // disableButton = true jesli brak tekstu w textField (trim usuwa biale znaki- spacje, tab)
-        generateButton.setDisable(disableButton);                       // setDisable = true jesli disableButton = true
+    private void handleKeyReleased() {              // checks whether password conditions have been met
+        String text = textField.getText();
+        boolean disableButton = text.isEmpty() || text.trim().isEmpty();
+        generateButton.setDisable(disableButton);
         if (text.matches(".*[a-zA-Z]+.*") || text.matches(".*[^1-9]+.*")){
             JOptionPane.showMessageDialog(null, "Only integers allowed!",
-                    "bad input",JOptionPane.WARNING_MESSAGE);
+                    "Bad Input",JOptionPane.WARNING_MESSAGE);
             textField.clear();
             generateButton.setDisable(true);
         }
         else if (Integer.parseInt(text) > 32){
             JOptionPane.showMessageDialog(null, "Password length limit is 32",
-                    "bad password length",JOptionPane.WARNING_MESSAGE);
+                    "Bad Password Length",JOptionPane.WARNING_MESSAGE);
             textField.clear();
             generateButton.setDisable(true);
         }
     }
-    /*
-        .* - Oznacza dowolny ciąg znaków (w tym żaden lub wiele znaków przed i po interesującym nas wzorcu).
-        [a-zA-Z] - Oznacza zakres znaków, których oczekujemy. W tym przypadku to litery od 'a' do 'z' i od 'A' do 'Z'.
-        [^0-9] - Oznacza negację zakresu znaków. To oznacza, że szukamy znaku, który nie należy do zakresu cyfr od '0' do '9'.
-        + - Oznacza, że musi wystąpić co najmniej jeden znak zdefiniowany w zakresie [a-zA-Z]
-     */
 
 
 
-/*
-    Klasa StringBuilder w języku Java służy do dynamicznego tworzenia i modyfikowania ciągów znaków
-    (łańcuchów). Jedną z głównych cech StringBuilder jest to, że jest ona mutowalna, co oznacza, że można
-    modyfikować zawartość ciągu znaków, dodając, usuwając lub zmieniając znaki, bez konieczności tworzenia
-    nowych obiektów, co jest efektywne pod względem pamięci i czasu wykonania.
-    Warto używać StringBuilder szczególnie w sytuacjach, gdzie zachodzi potrzeba dynamicznego modyfikowania
-    ciągów znaków, takich jak budowanie długich napisów czy tworzenie złożonych ciągów znaków w pętlach.
-
-    SecureRandom zapewnia kryptograficznie bezpieczne losowanie, co jest ważne w zastosowaniach, gdzie
-    istnieje wymaganie dotyczące wysokiego poziomu losowości, takich jak generowanie kluczy
-    kryptograficznych, tokenów uwierzytelniających, czy haseł.
- */
     @FXML
     private void handleGenerateButtonClick(){
         StringBuilder password = new StringBuilder();
@@ -188,7 +170,8 @@ public class PasswordController {
         String upperCase = lowerCase.toUpperCase();
         String digits = "0123456789";
         String specialChar = "!@#$%^&*()-_=+[{]};:'\'',<.>/?|`~";
-        int passwordLength = Integer.parseInt(textField.getText());     // pobieramy i zapisujemy dlugosc hasla
+
+        int passwordLength = Integer.parseInt(textField.getText());
 
         if (bigLettersCheckbox.isSelected())
             lowerCase += upperCase;
@@ -219,8 +202,8 @@ public class PasswordController {
         passwordStrength.setBackground(background);
 
 
-        generatedPassword.setText("password: \n" + String.valueOf(password));       // wysylamy do Label
-        this.password = password.toString();                                        // zapisuje haslo w polu klasy
+        generatedPassword.setText("password: \n" + String.valueOf(password));       // shows generated password on label
+        this.password = password.toString();                                        // saves generated password to the class field
         savePasswordButton.setDisable(false);
         copyPasswordButton.setDisable(false);
         generatedPassword.setVisible(true);
