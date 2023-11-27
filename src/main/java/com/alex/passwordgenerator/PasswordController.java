@@ -53,7 +53,12 @@ public class PasswordController {
 
     @FXML
     private void handleTextFieldClick() {
-        textField.clear();                      // czysci zawartosc pola textField
+        textField.clear();                      // czysci zawartosc pola textField po kliknieciu w nie
+        generateButton.setDisable(true);        // przy okazji wylacza przyciski
+        savePasswordButton.setDisable(true);
+        copyPasswordButton.setDisable(true);
+        generatedPassword.setVisible(false);
+        passwordStrength.setVisible(false);
     }
 
 
@@ -65,32 +70,47 @@ public class PasswordController {
 
 
     private boolean isPasswordWeak() {
-        return !bigLettersCheckbox.isSelected() && !numbersCheckbox.isSelected() && !specialCharCheckbox.isSelected() ||
-                password.length() <= 6 ||
-                !bigLettersCheckbox.isSelected() && password.length() <= 8 ||
-                !numbersCheckbox.isSelected() && password.length() <= 8 ||
-                !specialCharCheckbox.isSelected() && password.length() <= 8;
+        boolean noBigLetters = !bigLettersCheckbox.isSelected();
+        boolean noDigits = !numbersCheckbox.isSelected();
+        boolean noSpecialChar = !specialCharCheckbox.isSelected();
+
+        return noBigLetters && noDigits && noSpecialChar ||
+                noBigLetters && noDigits && !noSpecialChar && password.length() <= 12 ||
+                noBigLetters && !noDigits && noSpecialChar && password.length() <= 12 ||
+                !noBigLetters && noDigits && noSpecialChar && password.length() <= 12 ||
+                noBigLetters && !noDigits && !noSpecialChar && password.length() <= 8 ||
+                !noBigLetters && noDigits && !noSpecialChar && password.length() <= 8 ||
+                !noBigLetters && !noDigits && noSpecialChar && password.length() <= 8 ||
+                !noBigLetters && !noDigits && !noSpecialChar && password.length() < 6;
     }
 
 
     private boolean isPasswordMedium(){
-        return !bigLettersCheckbox.isSelected() && password.length() <= 12 ||
-                !numbersCheckbox.isSelected() && password.length() <= 12 ||
-                !specialCharCheckbox.isSelected() && password.length() <= 12 ||
-                bigLettersCheckbox.isSelected() && !numbersCheckbox.isSelected() && !specialCharCheckbox.isSelected() &&
-                        password.length() >= 12 ||
-                !bigLettersCheckbox.isSelected() && numbersCheckbox.isSelected() && !specialCharCheckbox.isSelected() &&
-                        password.length() >= 12 ||
-                !bigLettersCheckbox.isSelected() && !numbersCheckbox.isSelected() && specialCharCheckbox.isSelected() &&
-                        password.length() >= 12;
+        boolean noBigLetters = !bigLettersCheckbox.isSelected();
+        boolean noDigits = !numbersCheckbox.isSelected();
+        boolean noSpecialChar = !specialCharCheckbox.isSelected();
+
+        return noBigLetters && noDigits && !noSpecialChar && password.length() > 12 && password.length() <= 20 ||
+                noBigLetters && !noDigits && noSpecialChar && password.length() > 12 && password.length() <= 20||
+                !noBigLetters && noDigits && noSpecialChar && password.length() > 12 && password.length() <= 20||
+                noBigLetters && !noDigits && !noSpecialChar && password.length() > 8 && password.length() <= 12||
+                !noBigLetters && noDigits && !noSpecialChar && password.length() > 8 && password.length() <= 12||
+                !noBigLetters && !noDigits && noSpecialChar && password.length() > 8 && password.length() <= 12||
+                !noBigLetters && !noDigits && !noSpecialChar && password.length() >= 6 && password.length() < 10;
     }
 
     private boolean isPasswordStrong(){
-        return bigLettersCheckbox.isSelected() && numbersCheckbox.isSelected() && specialCharCheckbox.isSelected() &&
-                password.length() > 8 ||
-                bigLettersCheckbox.isSelected() && numbersCheckbox.isSelected() && password.length() > 12 ||
-                bigLettersCheckbox.isSelected() && specialCharCheckbox.isSelected() && password.length() > 12 ||
-                numbersCheckbox.isSelected() && specialCharCheckbox.isSelected() && password.length() > 12;
+        boolean noBigLetters = !bigLettersCheckbox.isSelected();
+        boolean noDigits = !numbersCheckbox.isSelected();
+        boolean noSpecialChar = !specialCharCheckbox.isSelected();
+
+        return noBigLetters && noDigits && !noSpecialChar && password.length() > 20 ||
+                noBigLetters && !noDigits && noSpecialChar && password.length() > 20 ||
+                !noBigLetters && noDigits && noSpecialChar && password.length() > 20 ||
+                noBigLetters && !noDigits && !noSpecialChar && password.length() > 12 ||
+                !noBigLetters && noDigits && !noSpecialChar && password.length() > 12 ||
+                !noBigLetters && !noDigits && noSpecialChar && password.length() > 12 ||
+                !noBigLetters && !noDigits && !noSpecialChar && password.length() >= 10;
     }
 
 
@@ -126,7 +146,7 @@ public class PasswordController {
         String text = textField.getText();                              // pobiera zawartosc pola textField
         boolean disableButton = text.isEmpty() || text.trim().isEmpty();        // disableButton = true jesli brak tekstu w textField (trim usuwa biale znaki- spacje, tab)
         generateButton.setDisable(disableButton);                       // setDisable = true jesli disableButton = true
-        if (text.matches(".*[a-zA-Z]+.*") || text.matches(".*[^0-9]+.*")){
+        if (text.matches(".*[a-zA-Z]+.*") || text.matches(".*[^1-9]+.*")){
             JOptionPane.showMessageDialog(null, "Only integers allowed!",
                     "bad input",JOptionPane.WARNING_MESSAGE);
             textField.clear();
@@ -203,6 +223,8 @@ public class PasswordController {
         this.password = password.toString();                                        // zapisuje haslo w polu klasy
         savePasswordButton.setDisable(false);
         copyPasswordButton.setDisable(false);
+        generatedPassword.setVisible(true);
+        passwordStrength.setVisible(true);
     }
 }
 
