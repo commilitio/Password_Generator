@@ -5,8 +5,9 @@ The Password Generator Application is a JavaFX-based tool designed to generate s
 ![Alt text](https://github.com/commilitio/Password_Generator/blob/master/screenshot2.jpg?raw=true)
 #
 ## Setup
+* Download the latest version of JRE
 * Download the release jar file (or clone and build it yourself)
-* Run the jar file in a terminal with "java -jar PasswordGenerator.jar"
+* Run the jar file in a terminal with "java -jar Password.Generator.jar"
 #  
 ## Features
 ### Password Generation: 
